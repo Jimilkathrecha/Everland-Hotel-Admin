@@ -16,7 +16,7 @@ export default function Sidebar() {
                     </div>
                     <div className="my-3">
                         <Link to="/Rooms-List">
-                            <div className="p-1"> 
+                            <div className="p-1">
                                 <i className="fa-duotone fa-bed fs-4 drop-shadow-md tx-red"></i>
                             </div>
                             <p className='fs-7 font-semibold'>All Rooms</p>
@@ -24,26 +24,42 @@ export default function Sidebar() {
                     </div>
                     <div className="my-3">
                         <Link to="/Add-Rooms">
-                            <div className="p-1"> 
+                            <div className="p-1">
                                 <i className="fa-duotone fa-grid-2-plus fs-4 drop-shadow-md tx-red"></i>
                             </div>
-                            <p className='fs-7 font-semibold m-0'>Add Room</p> 
+                            <p className='fs-7 font-semibold m-0'>Add Room</p>
+                        </Link>
+                    </div>
+                    <div className="my-3">
+                        <Link to="/Inventory">
+                            <div className="p-1">
+                            <i className="fa-duotone fa-hotel fs-4 drop-shadow-md tx-red"></i> 
+                            </div>
+                            <p className='fs-7 font-semibold m-0'>Inventory</p>
                         </Link>
                     </div>
                     <div className="my-3">
                         <Link to="/appearance">
-                            <div className="p-1"> 
+                            <div className="p-1">
                                 <i className="fa-duotone fa-stars fs-4 drop-shadow-md tx-red"></i>
                             </div>
                             <p className='fs-7 font-semibold m-0'>Appearance</p>
                         </Link>
                     </div>
                     <div className="my-3">
-                        <Link to="/approvedproperty">
-                            <div className="p-1"> 
+                        <Link to="/Bookings">
+                            <div className="p-1">
+                                <i className="fa-duotone fa-stars fs-4 drop-shadow-md tx-red"></i>
+                            </div>
+                            <p className='fs-7 font-semibold m-0'>Bookings</p>
+                        </Link>
+                    </div>
+                    <div className="my-3">
+                        <Link to="/Settings">
+                            <div className="p-1">
                                 <i className="fa-duotone fa-gear fs-4 drop-shadow-md tx-red"></i>
                             </div>
-                            <p className='fs-7 font-semibold m-0'>Setting</p> 
+                            <p className='fs-7 font-semibold m-0'>Setting</p>
                         </Link>
                     </div>
                 </div>

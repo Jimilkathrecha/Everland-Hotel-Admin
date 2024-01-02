@@ -60,6 +60,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     -webkit-appearance: none;
 }
 
+.checkbox:checked:before {
+    background-color: #db3f3f;
+}
+
 /* //offer-lable */
 .offer-lable {
     content: "";

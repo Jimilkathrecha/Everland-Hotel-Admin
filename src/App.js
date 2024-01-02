@@ -8,6 +8,9 @@ import RoomDetails from './pages/rooms/RoomDetails';
 import Rooms from './pages/rooms/Rooms';
 import Sidebar from './components/sidebar/Sidebar';
 import AddRoom from './pages/rooms/AddRoom';
+import Settings from './pages/setting/Settings'; 
+import Inventory from './pages/inventory/Inventory';
+import Booking from './pages/booking/Booking';
 
 
 function App() {
@@ -30,18 +33,22 @@ function App() {
     return <Login />;
   }
   return (
-    <>
-      {loading ? <Loader1 /> :
-        <div className='w-100 ease-in duration-700 flex gap-3'>
-          <Sidebar />
-          <Routes> 
-            <Route path="/home" element={<Home />} />
-            <Route path="/Rooms-List" element={<Rooms />} />
-            <Route path="/Add-Rooms" element={<AddRoom />} />
-            <Route path="/Room-Details" element={<RoomDetails />} />
-          </Routes>
-        </div>
-      }
+    <> 
+
+        {loading ? <Loader1 /> :
+          <div className='w-100 ease-in duration-700 flex gap-3'>
+            <Sidebar />
+            <Routes>
+              <Route path="/home" element={<Home />} />
+              <Route path="/Rooms-List" element={<Rooms />} />
+              <Route path="/Add-Rooms" element={<AddRoom />} />
+              <Route path="/Inventory" element={<Inventory />} />
+              <Route path="/Bookings" element={<Booking />} />
+              <Route path="/Settings" element={<Settings />} />
+              <Route path="/Room-Details" element={<RoomDetails />} />
+            </Routes>
+          </div>
+        } 
     </>
   );
 }

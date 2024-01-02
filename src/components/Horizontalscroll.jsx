@@ -24,7 +24,7 @@ export default function Horizontalscroll(props) {
     }, [sensitivity]);
 
     return (
-        <div className='scroll-d-none pe-5' ref={containerRef} style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
+        <div className='scroll-d-none pe-5 w-100' ref={containerRef} style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
             {children}
         </div>
     );

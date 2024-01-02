@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux";
 import reduxstore from "./redux/reduxstore";
 import { BrowserRouter } from 'react-router-dom';
+import { NextUIProvider } from '@nextui-org/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={reduxstore} >
     <BrowserRouter>
-      <App />
+      <NextUIProvider>
+        <App />
+      </NextUIProvider>
     </BrowserRouter>
   </Provider>
 );

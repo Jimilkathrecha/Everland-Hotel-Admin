@@ -58,6 +58,7 @@ export const sendOtpAction = (sendOtpData) => {
 };
 
 export const loginAction = (LogInData) => {
+  console.log("🚀 ~ file: auth.js:61 ~ loginAction ~ LogInData:", LogInData)
   return (dispatch) => {
     dispatch({
       type: IS_LOADING,
@@ -67,16 +68,16 @@ export const loginAction = (LogInData) => {
       type: ADD_LOGIN_LOADING,
       payload: true,
     });
-    return ApiPostNoAuth(`/api/v1/user/admin-login`, LogInData)
+    return ApiPostNoAuth(`/api/admin/login`, LogInData)
       .then((res) => {
         auth.setAuthToken(res.data.token);
-        let data = res.data;
+        let data = res.data; 
         delete data.password;
         dispatchLoginActions(dispatch, {
           loading: false,
           success: res.data,
         });
-        window.location.href = "/dashboard";
+        window.location.href = "/home";
       })
       .catch((error) => {
         dispatchLoginActions(dispatch, {
