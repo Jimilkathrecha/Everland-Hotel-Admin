@@ -23,11 +23,6 @@ export default function AddRoom() {
     const [selectedBedType, setSelectedBedType] = useState();
     const [selectedRoomView, setSelectedRoomView] = useState();
     const [selectedRoomTypes, SelectedsetRoomTypes] = useState();
-    console.log("🚀 ~ file: AddRoom.jsx:28 ~ AddRoom ~ selectedBedType:", selectedBedType)
-    console.log("🚀 ~ file: AddRoom.jsx:24 ~ AddRoom ~ selectedRoomView:", selectedRoomView)
-    console.log("🚀 ~ file: AddRoom.jsx:26 ~ AddRoom ~ selectedRoomTypes:", selectedRoomTypes)
-
-
 
 
 
@@ -44,10 +39,11 @@ export default function AddRoom() {
 
 
 
-
-
-    const [adultnum, setAdultNum] = useState(1);
-    const [maxadultnum, setmaxadultNum] = useState(1);
+    const [baseAdultnum, setBaseAdultNum] = useState(1);
+    const [maxAdultnum, setMaxAdultNum] = useState(1);
+    const [maxChildrentnum, setMaxChildrentNum] = useState(1);
+    const [maxOccupancy, setMaxOccupancy] = useState();
+    console.log("🚀 ~ file: AddRoom.jsx:53 ~ AddRoom ~ maxOccupancy:", maxOccupancy)
 
     const [addRoomData, setAddRoomData] = useState({
         email: "",
@@ -72,7 +68,6 @@ export default function AddRoom() {
         }
         return '';
     };
-
     const handleChangeLoginData = (e) => {
         const { name, value } = e.target;
         setAddRoomData((prevData) => ({
@@ -81,7 +76,6 @@ export default function AddRoom() {
             [`${name}Error`]: validateInput(name, value),
         }));
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const emailError = validateInput('email', addRoomData.email);
@@ -99,9 +93,6 @@ export default function AddRoom() {
         }
     };
 
-
-
-
     const preViewImgSlider = {
         dots: false,
         arrows: false,
@@ -111,32 +102,57 @@ export default function AddRoom() {
         slidesToScroll: 1,
     }
 
-    const adultincNum = () => {
+    const baseadultincNum = () => {
         // if (adultnum < 1) {
-        setAdultNum(Number(adultnum) + 1);
+        setBaseAdultNum(Number(baseAdultnum) + 1);
         // }
     };
-    const adultdecNum = () => {
-        if (adultnum > 1) {
-            setAdultNum(adultnum - 1);
+    const baseadultdecNum = () => {
+        if (baseAdultnum > 1) {
+            setBaseAdultNum(baseAdultnum - 1);
         }
     }
-    const adulthandleChange = (e) => {
-        setAdultNum(e.target.value);
+    const baseadulthandleChange = (e) => {
+        setBaseAdultNum(e.target.value);
     }
+
     const maxadultincNum = () => {
-        // if (maxadultnum < 5) {
-        setmaxadultNum(Number(maxadultnum) + 1);
+        // if (maxAdultnum < 5) {
+        setMaxAdultNum(Number(maxAdultnum) + 1);
         // }
     };
     const maxadultdecNum = () => {
-        if (maxadultnum > 1) {
-            setmaxadultNum(maxadultnum - 1);
+        if (maxAdultnum > 1) {
+            setMaxAdultNum(maxAdultnum - 1);
         }
     }
     const maxadulthandleChange = (e) => {
-        setmaxadultNum(e.target.value);
+        setMaxAdultNum(e.target.value);
     }
+
+    const maxchildrenincNum = () => {
+        // if (maxChildrentnum < 5) {
+        setMaxChildrentNum(Number(maxChildrentnum) + 1);
+        // }
+    };
+    const maxchildrendecNum = () => {
+        if (maxChildrentnum > 1) {
+            setMaxChildrentNum(maxChildrentnum - 1);
+        }
+    }
+    const maxchildrenhandleChange = (e) => {
+        setMaxChildrentNum(e.target.value);
+    }
+
+    useEffect(() => {
+        const totaloccupancy = maxAdultnum + maxChildrentnum
+        setMaxOccupancy(totaloccupancy)
+    }, [maxadulthandleChange, maxchildrenhandleChange])
+
+
+
+
+
     const RoomTypes = [
         { value: 'Deluxe', label: 'Deluxe' },
         { value: 'Standard', label: 'Standard' },
@@ -200,19 +216,100 @@ export default function AddRoom() {
         { value: 'Murphy', label: 'Murphy' },
         { value: 'Tatami Mats', label: 'Tatami Mats' },
     ];
-    const amenities = [
-        { id: 1, amenitiesname: 'Bathroom', amenitiesType: "Bathroom" },
-        { id: 2, amenitiesname: "Features", amenitiesType: 'Room Features' },
-        { id: 3, amenitiesname: "Entertainment", amenitiesType: 'Media and Entertainment' },
-        { id: 4, amenitiesname: "hh", amenitiesType: 'Food and Drinks' },
-        { id: 5, amenitiesname: "hh", amenitiesType: 'Kitchen and Appliances' },
-        { id: 6, amenitiesname: "hh", amenitiesType: 'Beds and Blanket' },
-        { id: 7, amenitiesname: "hh", amenitiesType: 'Safety and Security' },
-        { id: 8, amenitiesname: "hh", amenitiesType: 'Childcare' },
-        { id: 9, amenitiesname: "hh", amenitiesType: 'Other Facilities' },
+    const amenitiesNames = [
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Bathroom Phone' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Bathtub' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Bubble Bath' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Dental Kit' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Geyser/ Water heater' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Hot & Cold Water' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Slippers' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Toiletries' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Shower Cap' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Hammam' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Bathrobes' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Western Toilet Seat' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Shower cubicle' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Weighing Scale' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Shaving Mirror' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Sewing kit' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Bidet' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Toilet with grab rails' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Ensuite Bathroom/Common Bay' },
+        { id: 1, amenitiesType: "Bathroom", amenitiesname: 'Jetspray' },
+
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Closet" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Blackout curtains" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Center Table" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Charging points" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Couch" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Dining Table" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Fireplace" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Mini Bar" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Mini Fridge" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Sofa" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Telephone" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Work Desk" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Pillow menu" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Hypoallergenic Bedding" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Living Area" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Dining Area" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Seating Area" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Chair" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Fireplace Guards" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Coffee Machine" },
+        { id: 2, amenitiesType: 'Room Features', amenitiesname: "Jaccuzi" },
+
+        { id: 3, amenitiesType: 'Media and Entertainment', amenitiesname: "TV" },
+        { id: 3, amenitiesType: 'Media and Entertainment', amenitiesname: "Smart Controls" },
+        { id: 3, amenitiesType: 'Media and Entertainment', amenitiesname: "Sound Speakers" },
+        { id: 3, amenitiesType: 'Media and Entertainment', amenitiesname: "Smartphone" },
+
+        { id: 4, amenitiesType: 'Food and Drinks', amenitiesname: "BBQ Grill" },
+        { id: 4, amenitiesType: 'Food and Drinks', amenitiesname: "Cook & Butler Service" },
+
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Dishwasher" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Induction" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Stove/Induction" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Cooking Basics" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Washing machine" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Dishes and Silverware" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Rice Cooker" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Kitchenette" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Refrigerator" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Toaster" },
+        { id: 5, amenitiesType: 'Kitchen and Appliances', amenitiesname: "Microwave" },
+
+        { id: 6, amenitiesType: 'Beds and Blanket', amenitiesname: "Blanket" },
+
+        { id: 7, amenitiesType: 'Safety and Security', amenitiesname: "Cupboards with locks" },
+        { id: 7, amenitiesType: 'Safety and Security', amenitiesname: "Safe" },
+
+        { id: 8, amenitiesType: 'Childcare', amenitiesname: "Child safety socket covers" },
+
+        { id: 9, amenitiesType: 'Other Facilities', amenitiesname: "Mosquito Net" },
+        { id: 9, amenitiesType: 'Other Facilities', amenitiesname: "Newspaper" },
+        { id: 9, amenitiesType: 'Other Facilities', amenitiesname: "Balcony" },
+        { id: 9, amenitiesType: 'Other Facilities', amenitiesname: "Jacuzzi" },
+        { id: 9, amenitiesType: 'Other Facilities', amenitiesname: "Private Pool" },
+        { id: 9, amenitiesType: 'Other Facilities', amenitiesname: "Terrace" },
+        { id: 9, amenitiesType: 'Other Facilities', amenitiesname: "Fan" },
     ];
 
-    const filteredAmenitiesData = amenities.filter(type => type.amenitiesType === filtredAmenitiesType)
+    const amenitiesTypes = [
+        { id: 1, amenitiesType: "Popular with Guests" },
+        { id: 1, amenitiesType: "Bathroom" },
+        { id: 2, amenitiesType: 'Room Features' },
+        { id: 3, amenitiesType: 'Media and Entertainment' },
+        { id: 4, amenitiesType: 'Food and Drinks' },
+        { id: 5, amenitiesType: 'Kitchen and Appliances' },
+        { id: 6, amenitiesType: 'Beds and Blanket' },
+        { id: 7, amenitiesType: 'Safety and Security' },
+        { id: 8, amenitiesType: 'Childcare' },
+        { id: 9, amenitiesType: 'Other Facilities' },
+    ];
+
+    const filteredAmenitiesData = amenitiesNames.filter(type => type.amenitiesType === filtredAmenitiesType)
 
     const coverImageFile = (e) => {
         const selectedFile = e.target.files;
@@ -260,12 +357,12 @@ export default function AddRoom() {
                 <div className="w-[calc(100vw-120px)] h-[calc(100vh-0px)] flex mx-auto text-center relative border-l-2 border-t-2 shadow-1 border-red rounded-tl-lg scroll-d-none overflow-y-scroll">
                     {ActiveTabState === "rooms" &&
                         <div className="flex flex-col gap-3 h-fit w-100">
-                            <div className="w-fit px-3 border-b-2 border-red rounded-bl-lg drop-shadow-md">
-                                <p className='tx-red font-bold fs-3'>Add Room details</p>
+                            <div className="w-100 px-3 py-1 shadow-1">
+                                <p className='font-bold fs-4 text-left'>Add Room</p>
                             </div>
 
                             <form className='flex flex-col w-100 gap-4'>
-                                <div className="w-100 px-4">
+                                {/* <div className="w-100 px-4">
                                     <div className="flex items-center gap-3">
                                         <div className="">
                                             {coverSelectedImages.length === 0 ?
@@ -313,128 +410,368 @@ export default function AddRoom() {
                                             </div>
                                         </Horizontalscroll>
                                     </div>
-                                </div>
+                                </div> 
                                 {genralSelectedImages.length > 0 &&
                                     (genralSelectedImages.length && (
                                         <>
                                             <p className={`${genralSelectedImages.length <= 3 ? "opacity-0" : "opacity-100"}  bs-red fs-7 py-1 px-4 duration-700 ease-in-out w-fit font-bold tx-white`}>{genralSelectedImages.length >= 3 && <span>Delete {genralSelectedImages.length - 3} Imgs From List Max Limit Is Only 3</span>}</p>
                                         </>
                                     ))
-                                }
+                                }*/}
 
-                                <div className="bs-red w-50 rounded-full relative min-h-[2px] max-h-[2px]">
+                                {/* <div className="bs-red w-50 rounded-full relative min-h-[2px] max-h-[2px]">
                                     <span className='bs-red tx-white fs-5 font-bold absolute top-50 -mt-[1px] start-100 translate-middle-x rounded-b-lg float-right px-3 text-center'>Occupancy</span>
+                                </div> */}
+                                <div className="w-fit">
+                                    <span className='w-fit fs-6 font-bold px-3'>ROOM INFO</span>
                                 </div>
 
-                                <div className="flex px-4 my-4 gap-3">
-                                    <div className="flex flex-col col-2 gap-3">
-                                        <div className="drop-shadow-md border-red border-2 rounded h-fit overflow-hidden m-0">
-                                            <input className='w-100 px-2 py-1 focus:!outline-none' placeholder='Total Rooms' type='number' />
+
+                                <div className="flex flex-col w-100 gap-3">
+                                    <div className="flex w-100 px-5 h-fit gap-5">
+                                        <div className="flex flex-col w-50 gap-3">
+                                            <div className="h-fit text-start m-0">
+                                                <p className='fs-7 font-semibold my-1'>Display Name</p>
+                                                <input className='w-100 drop-shadow- border-[1px] border-grey rounded px-2 py-1 focus:!outline-none' placeholder='Room Name' type='text' />
+                                            </div>
+
+                                            <div className="text-start  m-0">
+                                                <p className='fs-7 font-semibold py-1'>Disciption</p>
+                                                <textarea className='w-100 rounded border-[1px] border-grey h-100 p-2 focus:!outline-none ' placeholder='Add Discription Here' type='text' />
+                                            </div>
                                         </div>
 
-                                        <div className="relative z-30 drop-shadow-md">
-                                            <Select placeholder="Select Rooms Type"
-                                                options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
-                                                className="w-100 border-red border-2 rounded bs-transparent focus:outline-0"
-                                            />
-                                            {console.log("🚀 ~ file: AddRoom.jsx:337 ~ AddRoom ~ RoomTypes:", RoomTypes)}
-                                        </div>
-                                        <div className="relative z-20 drop-shadow-md">
-                                            <Select placeholder="Select Rooms View"
-                                                options={RoomView} onChange={selectedRoomTypesHandler} value={RoomView.find(option => option.value === RoomView) || RoomView.find(option => option === RoomView)}
-                                                className="w-100 border-red border-2 rounded bs-transparent focus:outline-0"
-                                            />
-                                        </div>
-                                        <div className="relative z-10 drop-shadow-md">
-                                            <Select placeholder="Select Bed Type"
-                                                options={BedType} onChange={selectedBedTypeHandler} value={BedType.find(option => option.value === BedType) || BedType.find(option => option === BedType)}
-                                                className="w-100 border-red border-2 rounded bs-transparent focus:outline-0"
-                                            />
+                                        <div className="w-50 flex gap-4 justify-between">
+
+                                            <div className="w-50 flex flex-col justify-between">
+                                                <div className="relative z-30 text-start drop-shadow-">
+                                                    <p className='fs-7 font-semibold py-1'>Room Type</p>
+                                                    <Select placeholder="Select Rooms Type"
+                                                        options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                        className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                    />
+                                                </div>
+                                                <div className="relative z-20 text-start drop-shadow-">
+                                                    <p className='fs-7 font-semibold py-1'>Room View</p>
+                                                    <Select placeholder="Select Rooms View"
+                                                        options={RoomView} onChange={selectedRoomTypesHandler} value={RoomView.find(option => option.value === RoomView) || RoomView.find(option => option === RoomView)}
+                                                        className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                    />
+                                                </div>
+                                                <div className="relative z-10 text-start drop-shadow-">
+                                                    <p className='fs-7 font-semibold py-1'>Bed Type</p>
+                                                    <Select placeholder="Select Bed Type"
+                                                        options={BedType} onChange={selectedBedTypeHandler} value={BedType.find(option => option.value === BedType) || BedType.find(option => option === BedType)}
+                                                        className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="w-50 text-start h-fit m-0">
+                                                <p className='fs-7 font-semibold py-1'>Disciption</p>
+                                                <input className='drop-shadow- border-[1px] border-grey rounded w-100 px-2 py-1 focus:!outline-none' placeholder='Total Rooms' type='number' />
+                                            </div>
+
                                         </div>
                                     </div>
 
-                                    <div className="col flex flex-col justify-between">
-                                        <div className="w-100 flex justify- items-center h-fit gap-5">
-                                            <div className="">
-                                                <p className='w-fit fs-6 text-center font-semibold tx-red'>Dimensions(Sq.ft)</p>
+                                    <div className="w-100 px-5 h-fit gap-5">
+                                        <div className="text-start">
+                                            <p className='fs-7 font-semibold py-1'>Dimensions(Sq.ft)</p>
+                                            <div className=" flex gap-5 justify- items-center text-start">
                                                 <div className="flex gap-3">
-                                                    <div className="drop-shadow-md border-red border-2 rounded h-fit overflow-hidden m-0">
+                                                    <div className="border-[1px] border-grey py-1 px-3 rounded pointer">
+                                                        <p className=''>Size</p>
+                                                    </div>
+                                                    <div className="border-[1px] border-grey py-1 px-3 rounded pointer">
+                                                        <p className=''>Area</p>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="drop-shadow- border-[1px] border-grey rounded h-fit overflow-hidden m-0">
                                                         <input className='w-100 px-2 py-1 focus:!outline-none' placeholder='Length' type='number' />
                                                     </div>
-
-                                                    <div className="drop-shadow-md border-red border-2 rounded h-fit overflow-hidden m-0">
+                                                    <i className="fa-regular fa-xmark fs-5"></i>
+                                                    <div className="drop-shadow- border-[1px] border-grey rounded h-fit overflow-hidden m-0">
                                                         <input className='w-100 px-2 py-1 focus:!outline-none' placeholder='Breadth' type='number' />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="flex gap-5 col justify-center items-center">
-                                                <div className="">
-                                                    <p className='fs-6 text-center font-semibold tx-red'>Base Adults(12+ yr)</p>
-                                                    <div className="flex items-center rounded-md shadow-1 w-fit h-fit mx-auto">
-                                                        <div className="px-3 rounded-l-md bs-red pointer" onClick={adultdecNum}>
-                                                            <i className="fa-solid fa-minus tx-white fs-6"></i>
-                                                        </div>
-                                                        <input type="text" className="font-semibold text-center min-w-[30px] !max-w-[30px]" value={adultnum} onChange={adulthandleChange} />
-                                                        <div className="px-3 rounded-r-md bs-red pointer" onClick={adultincNum}>
-                                                            <i className="fa-solid fa-plus tx-white fs-6"></i>
-                                                        </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="w-100 text-start">
+                                        <p className='w-fit fs-6 font-bold py-3 px-3'>OCCUPANCY</p>
+                                        <div className="flex py-3 px-5 w-100 gap-5 items-center">
+                                            <div className="flex justify-between col gap-3 items-center">
+                                                <div className="text-start col">
+                                                    <p className='fs-7 font-bold'>Base Adults</p>
+                                                    <p className='fs-8 font-semibold tx-grey'>Ideal number of adults that can be accommodated in this room</p>
+                                                </div>
+
+                                                <div className="flex items-center rounded-md border-[1px] border-grey  w-fit h-fit mx-auto">
+                                                    <div className="px-3 py-1 rounded-l border-r-[1px] border-grey pointer" onClick={baseadultdecNum}>
+                                                        <i className="fa-solid fa-minus fs-6"></i>
+                                                    </div>
+                                                    <input type="text" className="font-semibold text-center min-w-[35px] !max-w-[35px]" value={baseAdultnum} onChange={baseadulthandleChange} />
+                                                    <div className="px-3 py-1 rounded-r border-l-[1px] border-grey pointer" onClick={baseadultincNum}>
+                                                        <i className="fa-solid fa-plus fs-6"></i>
                                                     </div>
                                                 </div>
-                                                <div className="">
-                                                    <p className='fs-6 text-center font-semibold tx-red'>Max Adults</p>
-                                                    <div className="flex items-center rounded-md shadow-1 w-fit h-fit mx-auto">
-                                                        <div className="px-3 rounded-l-md bs-red pointer" onClick={maxadultdecNum}>
-                                                            <i className="fa-solid fa-minus tx-white fs-6"></i>
-                                                        </div>
-                                                        <input type="text" className="font-semibold text-center min-w-[30px] !max-w-[30px]" value={maxadultnum} onChange={maxadulthandleChange} />
-                                                        <div className="px-3 rounded-r-md bs-red pointer" onClick={maxadultincNum}>
-                                                            <i className="fa-solid fa-plus tx-white fs-6"></i>
-                                                        </div>
+                                            </div>
+                                            <div className="flex justify-between col gap-3 items-center">
+                                                <div className="text-start col">
+                                                    <p className='fs-7 font-bold'>Maximum Adults</p>
+                                                    <p className='fs-8 font-semibold tx-grey'>Maximum number of adults that can be accommodated in this room</p>
+                                                </div>
+
+                                                <div className="flex items-center rounded-md border-[1px] border-grey  w-fit h-fit mx-auto">
+                                                    <div className="px-3 py-1 rounded-l border-r-[1px] border-grey pointer" onClick={maxadultdecNum}>
+                                                        <i className="fa-solid fa-minus fs-6"></i>
+                                                    </div>
+                                                    <input type="text" className="font-semibold text-center min-w-[35px] !max-w-[35px]" value={maxAdultnum} onChange={maxadulthandleChange} />
+                                                    <div className="px-3 py-1 rounded-r border-l-[1px] border-grey pointer" onClick={maxadultincNum}>
+                                                        <i className="fa-solid fa-plus fs-6"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="drop-shadow-md h-fit overflow-hidden m-0">
-                                            <textarea className='w-100 vertical-xl rounded border-red border-dashed border-3 h-100 p-2 focus:!outline-none ' placeholder='Add Discription Here' type='text' />
-                                        </div>
+                                        <div className="flex py-3 px-5 w-100 gap-5 items-center">
+                                            <div className="flex justify-between col gap-3 items-center">
+                                                <div className="text-start col">
+                                                    <p className='fs-7 font-bold'>Number of Max Children</p>
+                                                    <p className='fs-8 font-semibold tx-grey'>Mention the maximum number of children who can stay in the room</p>
+                                                </div>
+                                                <div className="flex items-center rounded-md border-[1px] border-grey  w-fit h-fit mx-auto">
+                                                    <div className="px-3 py-1 rounded-l border-r-[1px] border-grey pointer" onClick={maxchildrendecNum}>
+                                                        <i className="fa-solid fa-minus fs-6"></i>
+                                                    </div>
+                                                    <input type="text" className="font-semibold text-center min-w-[35px] !max-w-[35px]" value={maxChildrentnum} onChange={maxchildrenhandleChange} />
+                                                    <div className="px-3 py-1 rounded-r border-l-[1px] border-grey pointer" onClick={maxchildrenincNum}>
+                                                        <i className="fa-solid fa-plus fs-6"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="flex justify-between col gap-3 items-center">
+                                                <div className="text-start col">
+                                                    <p className='fs-7 font-bold'>Maximum Occupancy (adults & children)</p>
+                                                    <p className='fs-8 font-semibold tx-grey'>Mention the total number of adults & children that can be accommodated in this room</p>
+                                                </div>
 
+                                                <div className="flex items-center rounded-md border-[1px] border-grey  w-fit h-fit mx-auto">
+                                                    <div className="px-3 py-1 rounded-l border-r-[1px] border-grey cursor-not-allowed" >
+                                                        <i className="fa-solid fa-minus fs-6"></i>
+                                                    </div>
+                                                    <input type="text" className="font-semibold text-center min-w-[35px] !max-w-[35px]" disabled value={maxOccupancy} />
+                                                    <div className="px-3 py-1 rounded-r border-l-[1px] border-grey cursor-not-allowed" >
+                                                        <i className="fa-solid fa-plus fs-6"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="bs-red w-50 rounded-full relative min-h-[2px] max-h-[2px]">
-                                    <span className='bs-red tx-white fs-5 font-bold absolute top-50 -mt-[1px] start-100 translate-middle-x rounded-b-lg float-right px-3 text-center whitespace-nowrap'>All Amenities</span>
-                                </div>
-
                                 <div className="w-100 my-4 px-4">
-                                    <div className="w-100 border-2 flex p-3 gap-3 border-red rounded-md">
-                                        <div className="w-[20%] flex flex-col gap-2 ">
-                                            {amenities.map((item, index) => (
-                                                <div key={index} className="">
-                                                    <p value={item?.amenitiesType} onClick={() => setFiltredAmenitiesType(item?.amenitiesType)}
-                                                        className={`${item?.amenitiesType === filtredAmenitiesType ? "tx-red border-2 border-red shadow-1" : "tx-white bs-red"}  pointer fs-6 font-bold py-1 rounded`}>{item?.amenitiesType}</p>
-                                                </div>
-                                            ))}
+                                    <div className="rounded border-2">
+                                        <div className="w-100 border-b-1 text-start py-2">
+                                            <span className=' fs-5 font-bold px-3 whitespace-nowrap'>All Amenities</span>
                                         </div>
+                                        <div className="w-100 p-3  flex gap-3 rounded-md">
+                                            <div className="w-[20%] flex flex-col overflow-y-scroll scroll-d-none max-h-[500px] gap-2 ">
+                                                {amenitiesTypes.map((item, index) => (
+                                                    <div key={index} className="">
+                                                        <p value={item?.amenitiesType} onClick={() => setFiltredAmenitiesType(item?.amenitiesType)}
+                                                            className={`${item?.amenitiesType === filtredAmenitiesType ? "tx-white bs-blue drop-shadow-md first-letter:" : "border-2"}  pointer fs-6 font-semibold py-2 rounded`}>{item?.amenitiesType}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
 
-                                        <div className="bs-red w-[2px] rounded-full relative  "></div>
+                                            <div className="bs-blue w-[2px] rounded-full relative "></div>
 
-                                        <div className="col flex flex-col gap-3">
-                                            {filteredAmenitiesData.map((item, index) => {
-                                                return (
-                                                    <div key={index} className="flex w-100 justify-between h-fit rounded px-3 py-1 items-center border-b-2 border-red gap-3">
+                                            <div className="col flex flex-col overflow-y-scroll scroll-d-non max-h-[500px] gap-3">
+                                                {filteredAmenitiesData.map((item, index) => (
+                                                    <div key={index} className="flex w-100 h-fit rounded px-3 py-1 items-center border-b-2 border-blue gap-3">
+                                                        <input className='accent-[#2c74b3] pointer' type="checkbox" />
                                                         <div className=" h-fit">
                                                             <p className='fs-6 font-bold'>{item?.amenitiesname}</p>
                                                         </div>
-                                                        <input className='accent-[#db3f3f] pointer' type="checkbox" />
                                                     </div>
-                                                )
-                                            })}
+                                                ))}
+                                                {filtredAmenitiesType === "Popular with Guests" &&
+                                                    <>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'>Air Conditioning</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[9] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'>Heater</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[8] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'>Housekeeping</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[7] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'>In Room dining</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[6] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'> Iron/Ironing Board </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'> Mineral Water</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[5] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'>Room service</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[4] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'> Study Room </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'>Kettle</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[3] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'>Wifi</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[2] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'>Bathroom</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative z-[1] text-start drop-shadow-">
+                                                                <Select placeholder="Select Rooms Type"
+                                                                    options={RoomTypes} onChange={selectedRoomViewHandler} value={RoomTypes.find(option => option.value === RoomTypes) || RoomTypes.find(option => option === RoomTypes)}
+                                                                    className="w-100 border-[1px] border-grey rounded bs-transparent focus:outline-0"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex w-100 h-fit rounded px-3 py-1 items-center justify-between border-b-2 border-blue gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <input className='accent-[#2c74b3] pointer' type="checkbox" />
+                                                                <div className="h-fit">
+                                                                    <p className='fs-6 font-bold'> Air Purifier </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* <Link to="/rooms" > */}
-                                <div className="bs-transparent top-0 end-0 mt-[62px] fixed h-fit w-fit bs-red border-2 border-red rounded-bl-md pointer">
+                                <div className="mb-5 h-fit w-fit mx-auto bs-blue rounded-md pointer">
                                     <p className='w-fit tx-white text-center py-1 px-5 font-bold'>Submit & Save</p>
                                 </div>
                                 {/* </Link> */}

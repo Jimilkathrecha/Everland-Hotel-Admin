@@ -7,7 +7,7 @@ import Select from 'react-select';
 export default function Settings() {
     const [filtredAmenitiesType, setFiltredAmenitiesType] = useState("Bathroom");
     const [ActiveTabState, setActiveTabState] = useState(
-        localStorage.getItem('Setting page') || 'Amenities'
+        localStorage.getItem('Setting page')
     );
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [addAmenitiesTypeModal, setAddAmenitiesTypeModal] = useState(false);

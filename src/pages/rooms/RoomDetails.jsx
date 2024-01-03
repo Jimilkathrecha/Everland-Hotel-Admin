@@ -7,11 +7,11 @@ export default function RoomDetails() {
     const heroslider = {
         arrows: false,
         autoplay: true,
+        infinite: true,
         slidesToShow: 1,
         centerMode: false,
         slidesToScroll: 1,
         autoplaySpeed: 2000,
-        infinite: true,
         centerPadding: "100px",
         responsive: [
             {
@@ -40,12 +40,16 @@ export default function RoomDetails() {
             },
         ],
     };
+
     return (
         <>
-            <div className="w-100 flex flex-col justify-evenly my-[80px]">
-                <div className="w-[80%] mx-auto flex gap-3">
+            <div className="h-[100vh] w-[calc(100vw-0px)] flex flex-col items-start gap-3 rounded-lg">
+                <div className="w-100 h-[50px] flex items-center  text-center border-l-2 border-b-2 shadow-1 border-red rounded-bl-lg">
+                </div>
+
+                <div className="w-100 h-[calc(100vh-0px)] flex mx-auto text-center border-l-2 border-t-2 shadow-1 border-red rounded-tl-lg scroll-d-none overflow-y-scroll">
                     <div className="flex flex-col gap-3 h-100 w-[100%]">
-                        <div className="border-2 border-red shadow-md shadow-red-100 rounded-lg">
+                        <div className="shadow-md shadow-red-100 rounded-lg">
                             <div className="p-3">
                                 <div className="col flex gap-3 rounded-md overflow-hidden">
                                     <div className="flex w-100 gap-2 justify-center mx-auto overflow-hidden">

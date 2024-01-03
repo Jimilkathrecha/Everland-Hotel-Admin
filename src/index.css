@@ -212,6 +212,9 @@ body {
 .border-yellow {
   border-color: var(--bs-yellow) !important;
 }
+.border-grey {
+  border-color: var(--bs-grey) !important;
+}
 
 /* ================================ */
 .shadow-1 {
@@ -620,7 +623,7 @@ input[type="number"] {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: var(--bs-red);
+  background: var(--bs-blue);
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.199);
 }
 
